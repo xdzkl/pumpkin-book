@@ -1,11 +1,14 @@
-## 1.2
+## 公式1.2 
+
+第8页-第9页。
+
 $$\begin{aligned}
 \sum_{f}E_{ote}(\mathfrak{L}_a\vert X,f) &= \sum_f\sum_h\sum_{x\in\mathcal{X}-X}P(x)\mathbb{I}(h(x)\neq f(x))P(h\vert X,\mathfrak{L}_a) \\
 &=\sum_{x\in\mathcal{X}-X}P(x) \sum_hP(h\vert X,\mathfrak{L}_a)\sum_f\mathbb{I}(h(x)\neq f(x)) \\
 &=\sum_{x\in\mathcal{X}-X}P(x) \sum_hP(h\vert X,\mathfrak{L}_a)\cfrac{1}{2}2^{\vert \mathcal{X} \vert} \\
 &=\cfrac{1}{2}2^{\vert \mathcal{X} \vert}\sum_{x\in\mathcal{X}-X}P(x) \sum_hP(h\vert X,\mathfrak{L}_a) \\
 &=2^{\vert \mathcal{X} \vert-1}\sum_{x\in\mathcal{X}-X}P(x) \cdot 1\\
-\end{aligned}$$
+\end{aligned}​$$
 
 [解析]：
 
@@ -20,4 +23,4 @@ f_4:f_4(x_1)=1,f_4(x_2)=1;
 \end{aligned}$$
 一共$2^{\vert \mathcal{X} \vert}=2^2=4$个真实目标函数。所以此时通过算法$\mathfrak{L}_a$学习出来的模型$h(x)$对每个样本无论预测值为0还是1必然有一半的$f$与之预测值相等，例如，现在学出来的模型$h(x)$对$x_1$的预测值为1，也即$h(x_1)=1$，那么有且只有$f_3$和$f_4$与$h(x)$的预测值相等，也就是有且只有一半的$f$与它预测值相等，所以$\sum_f\mathbb{I}(h(x)\neq f(x)) = \cfrac{1}{2}2^{\vert \mathcal{X} \vert} $。
 
-第三步一直到最后有点概率论的基础应该都能看懂了。
+第三步一直到最后有点概率论的基础应该都能看懂了。$P(h\vert X,\mathfrak{L}_a) $的含义是算法$\mathfrak{L}_a$基于训练数据$X$产生假设$h$的概率，那么对所有的$h$的概率进行求和，自然就是1了。
