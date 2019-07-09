@@ -4,7 +4,7 @@ $$\left \| \nabla f(\boldsymbol x{}')-\nabla  f(\boldsymbol x) \right \|_{2}^{2}
 　　　将公式变形可以更好的理解：$$\frac{\left \| \nabla f(\boldsymbol x{}')-\nabla f(\boldsymbol x) \right \|_{2}^{2}}{\left \| \boldsymbol x{}'-\boldsymbol x \right \|_{2}^{2}}\leqslant L 　(\forall \boldsymbol x,\boldsymbol x{}'),$$
 　　　进一步，如果$\boldsymbol x{}'\to  \boldsymbol x$，即$$\lim_{\boldsymbol x{}'\to \boldsymbol x}\frac{\left \| \nabla f(\boldsymbol x{}')-\nabla f(\boldsymbol x)\right \|_{2}^{2}}{\left \| \boldsymbol x{}'-\boldsymbol x \right \|_{2}^{2}}$$
 　　　“ *Lipschitz*连续”很常见，知乎有一个问答(https://www.zhihu.com/question/51809602) 对*Lipschitz*连续的解释很形象：以陆地为例， 连续就是说这块地上没有特别陡的坡；其中最陡的地方有多陡呢？这就是所谓的*Lipschitz*常数。 
-   
+
 ## 11.10
 
 $$
@@ -60,7 +60,9 @@ z^{i}+\frac{\lambda }{L}, & z^{i}<-\frac{\lambda }{L}
 \end{matrix}\right.$$
 
 ## 11.18
-$$\begin{aligned}
+
+$$
+\begin{aligned}
 \underset{\boldsymbol B}{min}\left \|\boldsymbol  X-\boldsymbol B\boldsymbol A \right \|_{F}^{2}
 & =\underset{b_{i}}{min}\left \| \boldsymbol X-\sum_{j=1}^{k}b_{j}\alpha ^{j} \right \|_{F}^{2}\\
 & =\underset{b_{i}}{min}\left \| \left (\boldsymbol X-\sum_{j\neq i}b_{j}\alpha ^{j} \right )- b_{i}\alpha ^{i}\right \|_{F}^{2} \\
