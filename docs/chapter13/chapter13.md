@@ -105,7 +105,8 @@ $$
 \frac{\partial L L\left(D_{u}\right)}{\partial \boldsymbol{\Sigma}_{i}}=\sum_{\boldsymbol{x}_{j} \in D_{u}} \gamma_{j i} \cdot\left(\boldsymbol{\Sigma}_{i}^{-1}\left(\boldsymbol{x}_{j}-\boldsymbol{\mu}_{i}\right)\left(\boldsymbol{x}_{j}-\boldsymbol{\mu}_{i}\right)^{\top}-\boldsymbol{I}\right) \cdot \frac{1}{2} \boldsymbol{\Sigma}_{i}^{-1}
 $$
 综合两项结果，则$\cfrac{\partial LL(D_l \cup D_u) }{\partial \Sigma_i}$为
-$$\begin{aligned} \frac{\partial L L\left(D_{l} \cup D_{u}\right)}{\partial \boldsymbol{\mu}_{i}}=& \sum_{\boldsymbol{x}_{j} \in D_{u}} \gamma_{j i} \cdot\left(\boldsymbol{\Sigma}_{i}^{-1}\left(\boldsymbol{x}_{j}-\boldsymbol{\mu}_{i}\right)\left(\boldsymbol{x}_{j}-\boldsymbol{\mu}_{i}\right)^{\top}-\boldsymbol{I}\right) \cdot \frac{1}{2} \boldsymbol{\Sigma}_{i}^{-1} \\ &+\sum_{\left(\boldsymbol{x}_{j}, y_{j}\right) \in D_{l} \wedge y_{j}=i}\left(\boldsymbol{\Sigma}_{i}^{-1}\left(\boldsymbol{x}_{j}-\boldsymbol{\mu}_{i}\right)\left(\boldsymbol{x}_{j}-\boldsymbol{\mu}_{i}\right)^{\top}-\boldsymbol{I}\right) \cdot \frac{1}{2} \boldsymbol{\Sigma}_{i}^{-1} \\
+$$
+\begin{aligned} \frac{\partial L L\left(D_{l} \cup D_{u}\right)}{\partial \boldsymbol{\mu}_{i}}=& \sum_{\boldsymbol{x}_{j} \in D_{u}} \gamma_{j i} \cdot\left(\boldsymbol{\Sigma}_{i}^{-1}\left(\boldsymbol{x}_{j}-\boldsymbol{\mu}_{i}\right)\left(\boldsymbol{x}_{j}-\boldsymbol{\mu}_{i}\right)^{\top}-\boldsymbol{I}\right) \cdot \frac{1}{2} \boldsymbol{\Sigma}_{i}^{-1} \\ &+\sum_{\left(\boldsymbol{x}_{j}, y_{j}\right) \in D_{l} \wedge y_{j}=i}\left(\boldsymbol{\Sigma}_{i}^{-1}\left(\boldsymbol{x}_{j}-\boldsymbol{\mu}_{i}\right)\left(\boldsymbol{x}_{j}-\boldsymbol{\mu}_{i}\right)^{\top}-\boldsymbol{I}\right) \cdot \frac{1}{2} \boldsymbol{\Sigma}_{i}^{-1} \\
 &=\left(\sum_{\boldsymbol{x}_{j} \in D_{u}} \gamma_{j i} \cdot\left(\boldsymbol{\Sigma}_{i}^{-1}\left(\boldsymbol{x}_{j}-\boldsymbol{\mu}_{i}\right)\left(\boldsymbol{x}_{j}-\boldsymbol{\mu}_{i}\right)^{\top}-\boldsymbol{I}\right)\right.\\ &+\sum_{\left(\boldsymbol{x}_{j}, y_{j}\right) \in D_{l} \wedge y_{j}=i}\left(\boldsymbol{\Sigma}_{i}^{-1}\left(\boldsymbol{x}_{j}-\boldsymbol{\mu}_{i}\right)\left(\boldsymbol{x}_{j}-\boldsymbol{\mu}_{i}\right)^{\top}-\boldsymbol{I}\right) ) \cdot \frac{1}{2} \boldsymbol{\Sigma}_{i}^{-1}
 \end{aligned}
 $$
@@ -123,39 +124,61 @@ $$
 \alpha_{i}=\frac{1}{m}\left(\sum_{\boldsymbol{x}_{j} \in D_{u}} \gamma_{j i}+l_{i}\right)
 $$
 [推导]：类似于式(9.36)，写出$LL(D_l \cup D_u)$的拉格朗日形式
-$$\begin{aligned}
+$$
+\begin{aligned}
 \mathcal{L}(D_l \cup D_u,\lambda) &= LL(D_l \cup D_u)+\lambda(\sum_{s=1}^N \alpha_s -1)\\
 & =LL(D_l)+LL(D_u)+\lambda(\sum_{s=1}^N \alpha_s - 1)\\
-\end{aligned}$$
+\end{aligned}
+$$
 类似于式(9.37)，对$\alpha_i$求偏导。对于LL(D_u)，求导结果与式(9.37)的推导过程一样：
-$$\cfrac{\partial LL(D_u)}{\partial\alpha_i} = \sum_{x_j \in D_u} \cfrac{1}{\Sigma_{s=1}^N \alpha_s \cdot p(x_j|\mu_s,\Sigma_s)} \cdot p(x_j|\mu_i,\Sigma_i)$$
+$$
+\cfrac{\partial LL(D_u)}{\partial\alpha_i} = \sum_{x_j \in D_u} \cfrac{1}{\Sigma_{s=1}^N \alpha_s \cdot p(x_j|\mu_s,\Sigma_s)} \cdot p(x_j|\mu_i,\Sigma_i)
+$$
 对于$LL(D_l)$，类似于类似于(13.6)和(13.7)的推导过程
-$$\begin{aligned}
+$$
+\begin{aligned}
 \cfrac{\partial LL(D_l)}{\partial\alpha_i} &= \sum_{(x_i,y_i)\in D_l \wedge y_j=i} \cfrac{\partial ln(\alpha_i \cdot p(x_j| \mu_i,\Sigma_i))}{\partial\alpha_i}\\
 &=\sum_{(x_i,y_i)\in D_l \wedge y_j=i}\cfrac{1}{ \alpha_i \cdot p(x_j|\mu_i,\Sigma_i) }\cdot  \cfrac{\partial (\alpha_i \cdot  p(x_j|\mu_i,\Sigma_i))}{\partial \alpha_i}\\
 &=\sum_{(x_i,y_i)\in D_l \wedge y_j=i}\cfrac{1}{\alpha_i \cdot p(x_j|\mu_i,\Sigma_i) }\cdot  p(x_j|\mu_i,\Sigma_i)  \\
 &=\cfrac{1}{\alpha_i} \cdot \sum_{(x_i,y_i)\in D_l \wedge y_j=i} 1 \\
 &=\cfrac{l_i}{\alpha_i}
-\end{aligned}$$
+\end{aligned}
+$$
 上式推导过程中，重点注意变量是$\alpha_i$ ，$p(x_j|\mu_i,\Sigma_i)$是常量；最后一行$\alpha_i$相对于求和变量为常量，因此作为公因子提到求和号外面； 为第$i$类样本的有标记样本数目。
 综合两项结果，则$\cfrac{\partial LL(D_l \cup D_u) }{\partial \alpha_i}$为
-$$\cfrac{\partial LL(D_l \cup D_u) }{\partial \mu_i} = \cfrac{l_i}{\alpha_i} + \sum_{x_j \in D_u} \cfrac{p(x_j|\mu_i,\Sigma_i)}{\Sigma_{s=1}^N \alpha_s \cdot p(x_j| \mu_s, \Sigma_s)}+\lambda$$
+$$
+\cfrac{\partial LL(D_l \cup D_u) }{\partial \mu_i} = \cfrac{l_i}{\alpha_i} + \sum_{x_j \in D_u} \cfrac{p(x_j|\mu_i,\Sigma_i)}{\Sigma_{s=1}^N \alpha_s \cdot p(x_j| \mu_s, \Sigma_s)}+\lambda
+$$
 令$\cfrac{\partial LL(D_l \cup D_u) }{\partial \alpha_i}=0$并且两边同乘以$\alpha_i$,得
-$$ \alpha_i \cdot \cfrac{l_i}{\alpha_i} + \sum_{x_j \in D_u} \cfrac{\alpha_i \cdot  p(x_j|\mu_i,\Sigma_i)}{\Sigma_{s=1}^N \alpha_s \cdot p(x_j| \mu_s, \Sigma_s)}+\lambda \cdot \alpha_i=0$$
+$$
+\alpha_i \cdot \cfrac{l_i}{\alpha_i} + \sum_{x_j \in D_u} \cfrac{\alpha_i \cdot  p(x_j|\mu_i,\Sigma_i)}{\Sigma_{s=1}^N \alpha_s \cdot p(x_j| \mu_s, \Sigma_s)}+\lambda \cdot \alpha_i=0
+$$
 结合式(9.30)发现，求和号内即为后验概率$\gamma_{ji}$,即
-$$l_i+\sum_{x_i \in D_u} \gamma_{ji}+\lambda \alpha_i = 0$$
+$$
+l_i+\sum_{x_i \in D_u} \gamma_{ji}+\lambda \alpha_i = 0
+$$
 对所有混合成分求和，得
-$$\sum_{i=1}^N l_i+\sum_{i=1}^N  \sum_{x_i \in D_u} \gamma_{ji}+\sum_{i=1}^N \lambda \alpha_i = 0$$
+$$
+\sum_{i=1}^N l_i+\sum_{i=1}^N  \sum_{x_i \in D_u} \gamma_{ji}+\sum_{i=1}^N \lambda \alpha_i = 0
+$$
 这里$\Sigma_{i=1}^N \alpha_i =1$ ，因此$\sum_{i=1}^N \lambda \alpha_i=\lambda\sum_{i=1}^N \alpha_i=\lambda$
 根据（9.30）中$\gamma_{ji}$表达式可知
-$$\sum_{i=1}^N \gamma_{ji} =  \sum_{i =1}^{N} \cfrac{\alpha_i \cdot  p(x_j|\mu_i,\Sigma_i)}{\Sigma_{s=1}^N \alpha_s \cdot p(x_j| \mu_s, \Sigma_s)}=  \cfrac{\sum_{i =1}^{N}\alpha_i \cdot  p(x_j|\mu_i,\Sigma_i)}{\sum_{s=1}^N \alpha_s \cdot p(x_j| \mu_s, \Sigma_s)}=1$$
+$$
+\sum_{i=1}^N \gamma_{ji} =  \sum_{i =1}^{N} \cfrac{\alpha_i \cdot  p(x_j|\mu_i,\Sigma_i)}{\Sigma_{s=1}^N \alpha_s \cdot p(x_j| \mu_s, \Sigma_s)}=  \cfrac{\sum_{i =1}^{N}\alpha_i \cdot  p(x_j|\mu_i,\Sigma_i)}{\sum_{s=1}^N \alpha_s \cdot p(x_j| \mu_s, \Sigma_s)}=1
+$$
 再结合加法满足交换律，所以
-$$\sum_{i=1}^N  \sum_{x_i \in D_u} \gamma_{ji}=\sum_{x_i \in D_u} \sum_{i=1}^N  \gamma_{ji} =\sum_{x_i \in D_u} 1=u$$
+$$
+\sum_{i=1}^N  \sum_{x_i \in D_u} \gamma_{ji}=\sum_{x_i \in D_u} \sum_{i=1}^N  \gamma_{ji} =\sum_{x_i \in D_u} 1=u
+$$
 以上分析过程中，$\sum_{x_j\in D_u}$ 形式与$\sum_{j=1}^u$等价，其中u为未标记样本集的样本个数； $\sum_{i=1}^Nl_i=l$其中$l$为有标记样本集的样本个数；将这些结果代入
-$$\sum_{i=1}^N l_i+\sum_{i=1}^N  \sum_{x_i \in D_u} \gamma_{ji}+\sum_{i=1}^N \lambda \alpha_i = 0$$
+$$
+\sum_{i=1}^N l_i+\sum_{i=1}^N  \sum_{x_i \in D_u} \gamma_{ji}+\sum_{i=1}^N \lambda \alpha_i = 0
+$$
 解出$l+u+\lambda = 0$  且$l+u =m$ 其中$m$为样本总个数，移项即得$\lambda = -m$
 最后带入整理解得
-$$l_i + \Sigma_{X_j \in{D_u}} \gamma_{ji}-m \alpha_i = 0$$
+$$
+l_i + \Sigma_{X_j \in{D_u}} \gamma_{ji}-m \alpha_i = 0
+$$
 整理即得式(13.8)；
 
 
